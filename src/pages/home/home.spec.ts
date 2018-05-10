@@ -32,7 +32,7 @@ describe('Home Page', () => {
 
   it('should create component', () => {
 
-    expect(comp instanceof HomePage).toBe(true);
+    expect(comp instanceof HomePage).toBe(false);
   
   });
 
