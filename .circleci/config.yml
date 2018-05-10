@@ -2,8 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7
-
+      - image: circleci/node:6-browsers
+              environment:
+                  CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - checkout
 
