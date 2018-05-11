@@ -13,10 +13,14 @@ import { IonicPage, NavController } from 'ionic-angular';
   templateUrl: 'home.html',
 })
 export class HomePage {
-
+  title: String;
   constructor(public navCtrl: NavController) {
-  }
+    this.title = 'My Page';
 
+  }
+  changeTitle(title) {
+    this.title = title;
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
