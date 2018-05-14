@@ -14,7 +14,6 @@ describe('Home Page', () => {
   let el: HTMLElement;
   let dataUser: HTMLInputElement;
   let dataPassword: HTMLInputElement;
-  // let loginBtn: HTMLInputElement;
   let loginBtn: HTMLButtonElement;
 
   beforeEach(async(() => {
@@ -37,7 +36,6 @@ describe('Home Page', () => {
     fixture = TestBed.createComponent(HomePage);
     comp = fixture.componentInstance;
     loginBtn = fixture.debugElement.query(By.css('.loginButton')).nativeElement;
-    // loginBtn = fixture.debugElement.query(By.css('ion-buttons button')).nativeElement;
     dataUser = fixture.debugElement.query(By.css('.username')).nativeElement;
     dataPassword = fixture.debugElement.query(By.css('.password')).nativeElement;
 
@@ -58,8 +56,17 @@ describe('Home Page', () => {
   });
 
   it('initialises with a title of My Page', () => {
-    // expect(comp['title']).toEqual('My Page');
+    expect(comp['title']).toEqual('My Page');
     expect(comp instanceof HomePage).toBe(true);
+  });
+
+  it('can set the title to a supplied value', () => {
+    de = fixture.debugElement.query(By.css('ion-title'));
+    el = de.nativeElement;
+    comp.changeTitle('Your Page');
+    fixture.detectChanges();
+    expect(comp['title']).toEqual('Your Page'); // 
+    expect(el.textContent).toContain('Your Page');
   });
 
   it('input username', () => {
@@ -81,95 +88,30 @@ describe('Home Page', () => {
     expect(el.textContent).toContain('password');
   });
 
-  // it('should check loginBtn is disabled initially', () => {
-  //   fixture.detectChanges();
-  //   let loginBtn =   fixture.debugElement.query(By.css('.loginButton')).nativeElement;
-  //   fixture.whenStable().then(() => {
-  //     expect(loginBtn.disabled).toBe(true)
-  //    })
-
-  //  });
-
-  // it('should check later input', async(() => {
-  //   let loginBtn = fixture.debugElement.query(By.css('.loginButton')).nativeElement;
-  //   let data: any = {
-  //     user: '',
-  //     password: ''
-  //   };
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     data.user = 'user';
-  //     data.user.dispatchEvent(new Event('input'));
-  //     // data.password = '';
-  //     // data.password.dispatchEvent(new Event('input'));
-
-  //     // expect(data.user).toBe('user');
-  //     fixture.detectChanges();
-  //     expect(loginBtn.disabled).toBe(false)
-  //   });
-
-  // }));
-
-  it('should be fill input username and password', () => {
-    dataUser = fixture.debugElement.query(By.css('.username')).nativeElement;
+  it('should check loginBtn is disabled initially', () => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      dataUser.value = 'user01user01';
-      dataUser.dispatchEvent(new Event('input'));
-      dataPassword.value = 'password1234';
-      dataPassword.dispatchEvent(new Event('input'));
-      comp.data.user = 'username';
-      fixture.detectChanges();
-      expect(dataUser.value).toBe('user01user01');
-      expect(dataPassword.value).toBe('password1234');
-      expect(comp.data.user).toBe('username');
-      expect(loginBtn.disabled).toBe(false);
-    });
+    // fixture.whenStable().then(() => {
+    expect(comp.data.user).toBe('')
+    expect(comp.data.password).toBe('')
+    expect(loginBtn.disabled).toBe(true);
+    // })
   });
 
-  //  it('should check loginBtn is disabled initially', () => {
-  //  let loginBtn = fixture.debugElement.query(By.css('.loginButton')).nativeElement;
-  //   let data: any = {};
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     // data.user.value = 'user';
-  //     // data.user.dispatchEvent(new Event('input'));
-
-  //     // data.password = 'password';
-  //     // data.password.dispatchEvent(new Event('input'));
-  //     // fixture.detectChanges();
-  //     expect(data.user.value).toBe('')
-  //     expect(loginBtn.disabled).toBe(false)
-
-
-  //  })
-  // });
-
-  // it('button disabled', () => {
-  //     let data = { 
-  //       user: 'user',
-  //       password: 'password'
-  //    };
-  //   de = fixture.debugElement.query(By.css('.loginButton'));
-  //   el = de.nativeElement;
-  //   expect(el.textContent).toContain('Click');
-  //   fixture.whenStable().then(() => {
-  //     fixture.detectChanges();
-  //     expect(el.disabled).toBe(true)
-  //   })
-
-  // });
-
-  // it('can set the title to a supplied value', () => {
-
-  //   de = fixture.debugElement.query(By.css('ion-title'));
-  //   el = de.nativeElement;
-
-  //   comp.changeTitle('Your Page');
-  //   fixture.detectChanges();
-  //   expect(comp['title']).toEqual('Your Page'); // 
-  //   expect(el.textContent).toContain('Your Page');
-
-  // });
-
+  it('should be fill input username and password to button enable', () => {
+    fixture.detectChanges();
+    // fixture.whenStable().then(() => {
+    dataUser.value = 'user01 test';
+    // dataUser.dispatchEvent(new Event('input'));
+    dataPassword.value = 'password1234 test';
+    // dataPassword.dispatchEvent(new Event('input'));
+    comp.data.user = dataUser.value;
+    comp.data.password = dataPassword.value;
+    fixture.detectChanges();
+    expect(dataUser.value).toBe(dataUser.value);
+    expect(dataPassword.value).toBe(dataPassword.value);
+    expect(comp.data.user).toBe(dataUser.value);
+    expect(comp.data.password).toBe(dataPassword.value);
+    expect(loginBtn.disabled).toBe(false);
+    // });
+  });
 });
