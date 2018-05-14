@@ -14,7 +14,9 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class HomePage {
   title: String;
-  public data: any = {};
+  public data: any = {
+    user:''
+  };
   constructor(public navCtrl: NavController) {
     this.title = 'My Page';
 
